@@ -6,7 +6,7 @@ Minimal, modern, dependency-free TLS server / client library for Linux.
 - Comes with it's own fast MPI and crypto (based on tomcrypt, no homebrew stuff)
 - Made for static linking, no dependencies and only about 200kB compiled code size
 - Full TLS1.2 support, no TLS1.0 or TLS1.1. Less legacy, less attack surface. 
-- Full TLS1.3 support on the server, experimental on client.
+- TLS1.3 support on the server, experimental on client.
 - No configuration options or ifdef jungle (only `-DDEBUG` for tracing) 
 - Transparent, low level API (no suprise file reads - looking at you OpenSSL)
 - Thread-safe, call `tls_init` once and then fork/thread to your heart's content
@@ -21,13 +21,9 @@ In your own projects, just include `nutls.c`.
 
 ## Licensing
 
-Almost all nuTLS code is in the Public Domain (see LICENSE). It is in large part based on work by Eduard Suica (TLS) and Tom St Denis (crypto and math).
+All nuTLS code is in the Public Domain (see LICENSE). It is in large part based on work by Eduard Suica (TLS) and Tom St Denis (crypto and math).
 
-The only exception is the implementation of Curve25519, which was created by Google. It's based on Public Domain code, but they chose to slap their license on it. So source or binary distributions of nuTLS need to come with the LICENSE.x25519.Google file, or reproduce it's contents somewhere else.
-
-If someone has an equally clean implementation (from the Paper, using all it's optimizations, not using the reference implementation's weird code), please reach out. Or lobby Google to make the Curve25519 code Public Domain.
-
-Curve25519 as used by nuTLS was implemented by Adam Langley, based on code by Daniel J. Bernstein.
+The implementation of Curve25519 is based on the code included in the cifra project by Joseph Birr-Pixton, which in turn is based on TweetNaCl. All of which is also Public Domain. The Curve25519 reference implementations was written by Daniel J. Bernstein.
 
 ## nuTLS for Servers
 
