@@ -61,14 +61,13 @@ x25519                    | ✓ (preferred) |
   Here's why that grading system is just wrong:
 
   - All NIST curves are inherently questionable, as they are endorsed by RSA-breaking intelligence agencies (e.g. the NSA)
-  - NIST intentionally excluded the strongest curve (`secp512r1`) from it's official recommendation for no technical reason. But because of this formality, `secp512r1` isn't considered "official", which caused a negative feedback loop which led to all vendors dropping support for it.
   - Curve25519 is faster, easier to implement and entirely unencumbered by any patents or licenses.
 
-  There's another thing that NIST did to undermine security. The mandatory (and with that, fallback) curve is `secp256r1`, the least secure curve currently supported! Want to offer the best independent curve and the best NIST one (`secp384r1`)? Tough luck, you're now incompatible with a bunch of clients! Want to only offer the best, independent curve (`x25519`)? Wrong again, NIST says you're only TLS "compliant" if you have `secp256r1`!
-
-  All this this leads to insane configurations, like for `google.com` where the supported named groups (a list of curves ordered by preference sent by the server) looks like this: `x25519, secp256r1`. The best overall curve followed by the weakest one from a pool that's questionable in the first place.
+  The mandatory (and with that, fallback) curve is `secp256r1`. Want to offer the best independent curve and the best NIST one (`secp384r1`)? Tough luck, you're now incompatible with a bunch of clients! Want to only offer the best, independent curve (`x25519`)? Wrong again, NIST says you're only TLS "compliant" if you have `secp256r1`!
 
   So, nuTLS has no choice but to offer up `secp256r1`. However, `secp384r1` is also always offered, so that NIST-friendly clients can at least use the most secure NIST curve if they support it.
+
+  The order follows `google.com`: `x25519` is always preferred, `secp256r1` exists for compliance reasons.
 </details>
 
 ### Ciphers
