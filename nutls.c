@@ -1,8 +1,5 @@
 #define CRYPT 0x0117
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "ArgumentSelectionDefects"
-
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -5916,10 +5913,6 @@ int hash_memory(int hash, const unsigned char *in, unsigned long inlen,
     return CRYPT_OK;                                                      \
   }
 
-
-
-
-
 typedef struct Hmac_state {
   hash_state md;
   int hash;
@@ -5981,10 +5974,6 @@ int gcm_process(gcm_state *gcm, unsigned char *pt, unsigned long ptlen,
                 unsigned char *ct, int direction);
 
 int gcm_done(gcm_state *gcm, unsigned char *tag, unsigned long *taglen);
-
-
-
-
 
 /* ---- PRNG Stuff ---- */
 
@@ -6055,10 +6044,6 @@ unsigned long rng_get_bytes(unsigned char *out, unsigned long outlen,
 
 int rng_make_prng(int bits, int wprng, prng_state *prng,
                   void (*callback)(void));
-
-
-
-
 
 /* ---- NUMBER THEORY ---- */
 
@@ -6949,18 +6934,10 @@ extern const ltc_math_descriptor ltm_desc;
 
 #define mp_tohex(a, b) mp_toradix(a, b, 16)
 
-
-
-
-
 /* ---- LTC_BASE64 Routines ---- */
 
 /* ---- MEM routines ---- */
 void zeromem(void *dst, size_t len);
-
-
-
-
 
 /* Defines the LTC_ARGCHK macro used within the library */
 /* ARGTYPE is defined in mycrypt_cfg.h */
@@ -9017,8 +8994,6 @@ int der_encode_bit_string(const unsigned char *in, unsigned long inlen,
 
 /* $Source:
  * /cvs/libtom/libtomcrypt/src/pk/asn1/der/bit/der_encode_bit_string.c,v $ */
-
-
 
 /**
    @file der_encode_boolean.c
@@ -14342,10 +14317,6 @@ unsigned long rng_get_bytes(unsigned char *out, unsigned long outlen,
   return 0;
 }
 
-
-
-
-
 /**
    @file rng_make_prng.c
    portable way to get secure random bits to feed a PRNG  (Tom St Denis)
@@ -15220,10 +15191,6 @@ unsigned long sprng_read(unsigned char *out, unsigned long outlen,
   LTC_ARGCHK(out != NULL);
   return rng_get_bytes(out, outlen, NULL);
 }
-
-
-
-
 
 /**
    @file zeromem.c
@@ -18831,8 +18798,6 @@ typedef struct chacha_ctx chacha_ctx;
 static const char sigma[] = "expand 32-byte k";
 static const char tau[] = "expand 16-byte k";
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_keysetup(chacha_ctx *x, const u8 *k, u32 kbits) {
   const char *constants;
 
@@ -18856,7 +18821,6 @@ static inline void chacha_keysetup(chacha_ctx *x, const u8 *k, u32 kbits) {
   x->input[3] = _private_tls_U8TO32_LITTLE(constants + 12);
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_key(chacha_ctx *x, u8 *k) {
   _private_tls_U32TO8_LITTLE(k, x->input[4]);
   _private_tls_U32TO8_LITTLE(k + 4, x->input[5]);
@@ -18869,14 +18833,12 @@ static inline void chacha_key(chacha_ctx *x, u8 *k) {
   _private_tls_U32TO8_LITTLE(k + 28, x->input[11]);
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_nonce(chacha_ctx *x, u8 *nonce) {
   _private_tls_U32TO8_LITTLE(nonce + 0, x->input[13]);
   _private_tls_U32TO8_LITTLE(nonce + 4, x->input[14]);
   _private_tls_U32TO8_LITTLE(nonce + 8, x->input[15]);
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_ivsetup(chacha_ctx *x, const u8 *iv,
                                   const u8 *counter) {
   x->input[12] = counter == NULL ? 0 : _private_tls_U8TO32_LITTLE(counter + 0);
@@ -18887,7 +18849,6 @@ static inline void chacha_ivsetup(chacha_ctx *x, const u8 *iv,
   }
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_ivsetup_96bitnonce(chacha_ctx *x, const u8 *iv,
                                              const u8 *counter) {
   x->input[12] = counter == NULL ? 0 : _private_tls_U8TO32_LITTLE(counter + 0);
@@ -18898,7 +18859,6 @@ static inline void chacha_ivsetup_96bitnonce(chacha_ctx *x, const u8 *iv,
   }
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_ivupdate(chacha_ctx *x, const u8 *iv, const u8 *aad,
                                    const u8 *counter) {
   x->input[12] = counter == NULL ? 0 : _private_tls_U8TO32_LITTLE(counter + 0);
@@ -18909,7 +18869,6 @@ static inline void chacha_ivupdate(chacha_ctx *x, const u8 *iv, const u8 *aad,
       _private_tls_U8TO32_LITTLE(iv + 8) ^ _private_tls_U8TO32_LITTLE(aad + 4);
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha_encrypt_bytes(chacha_ctx *x, const u8 *m, u8 *c,
                                         u32 bytes) {
   u32 x0, x1, x2, x3, x4, x5, x6, x7;
@@ -19066,7 +19025,6 @@ static inline void chacha_encrypt_bytes(chacha_ctx *x, const u8 *m, u8 *c,
   }
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static inline void chacha20_block(chacha_ctx *x, unsigned char *c, u_int len) {
   u_int i;
 
@@ -19089,7 +19047,6 @@ static inline void chacha20_block(chacha_ctx *x, unsigned char *c, u_int len) {
     _private_tls_U32TO8_LITTLE(c + i, x->input[i / 4]);
   }
 }
-#pragma clang diagnostic pop
 
 static inline int poly1305_generate_key(unsigned char *key256,
                                         unsigned char *nonce,
@@ -19125,8 +19082,6 @@ typedef struct poly1305_state_internal_t {
   unsigned char final;
 } poly1305_state_internal_t;
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 /* interpret four 8 bit unsigned integers as a 32 bit unsigned integer in little
  * endian */
 static unsigned long private_tls_U8TO32(const unsigned char *p) {
@@ -19135,7 +19090,6 @@ static unsigned long private_tls_U8TO32(const unsigned char *p) {
           ((unsigned long)(p[3] & 0xff) << 24));
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 /* store a 32 bit unsigned integer as four 8 bit unsigned integers in little
  * endian */
 static void private_tls_U32TO8(unsigned char *p, unsigned long v) {
@@ -19145,7 +19099,6 @@ static void private_tls_U32TO8(unsigned char *p, unsigned long v) {
   p[3] = (v >> 24) & 0xff;
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 void private_tls_poly1305_init(poly1305_context *ctx,
                                const unsigned char key[32]) {
   poly1305_state_internal_t *st = ctx;
@@ -19174,7 +19127,6 @@ void private_tls_poly1305_init(poly1305_context *ctx,
   st->final = 0;
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 static void private_tls_poly1305_blocks(poly1305_state_internal_t *st,
                                         const unsigned char *m, size_t bytes) {
   const unsigned long hibit = (st->final) ? 0 : (1UL << 24); /* 1 << 128 */
@@ -19257,7 +19209,6 @@ static void private_tls_poly1305_blocks(poly1305_state_internal_t *st,
   st->h[4] = h4;
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 void private_tls_poly1305_finish(poly1305_context *ctx, unsigned char mac[16]) {
   poly1305_state_internal_t *st = ctx;
   unsigned long h0, h1, h2, h3, h4, c;
@@ -19364,7 +19315,6 @@ void private_tls_poly1305_finish(poly1305_context *ctx, unsigned char mac[16]) {
   st->pad[3] = 0;
 }
 
-#pragma ide diagnostic ignored "hicpp-signed-bitwise"
 void private_tls_poly1305_update(poly1305_context *ctx, const unsigned char *m,
                                  size_t bytes) {
   poly1305_state_internal_t *st = ctx;
@@ -19396,7 +19346,6 @@ void private_tls_poly1305_update(poly1305_context *ctx, const unsigned char *m,
     st->leftover += bytes;
   }
 }
-#pragma clang diagnostic pop
 
 void chacha20_poly1305_key(struct chacha_ctx *ctx,
                            unsigned char *poly1305_key) {

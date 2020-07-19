@@ -21,8 +21,8 @@ unsigned long read_from_file(const char *fname, void *buf, size_t max_len) {
 void load_keys(struct TLSContext *context, char *fname, char *priv_fname) {
   unsigned char buf[0xFFFF];
   unsigned char buf2[0xFFFF];
-    unsigned long size = read_from_file(fname, buf, 0xFFFF);
-    unsigned long size2 = read_from_file(priv_fname, buf2, 0xFFFF);
+  unsigned long size = read_from_file(fname, buf, 0xFFFF);
+  unsigned long size2 = read_from_file(priv_fname, buf2, 0xFFFF);
   if (size > 0) {
     if (context) {
       tls_load_certificates(context, buf, size);
@@ -39,7 +39,7 @@ int send_pending(int client_sock, struct TLSContext *context) {
   int send_res = 0;
   while ((out_buffer) && (out_buffer_len > 0)) {
     ssize_t res = send(client_sock, (char *)&out_buffer[out_buffer_index],
-                   out_buffer_len, 0);
+                       out_buffer_len, 0);
     if (res <= 0) {
       send_res = res;
       break;
@@ -51,8 +51,6 @@ int send_pending(int client_sock, struct TLSContext *context) {
   return send_res;
 }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedLocalVariable"
 // verify signature
 int verify_signature(struct TLSContext *context,
                      struct TLSCertificate **certificate_chain, int len) {
@@ -67,7 +65,6 @@ int verify_signature(struct TLSContext *context,
   }
   return no_error;
 }
-#pragma clang diagnostic pop
 
 int main(int argc, char *argv[]) {
   int socket_desc, client_sock;
@@ -150,7 +147,7 @@ int main(int argc, char *argv[]) {
             char sni[0xFF];
             sni[0] = 0;
             if (context->sni) snprintf(sni, 0xFF, "%s", context->sni);
-            
+
             // ugly inefficient code ... don't write like me
             char send_buffer[0xF000];
             char send_buffer_with_header[0xF000];
@@ -164,14 +161,15 @@ int main(int argc, char *argv[]) {
                 tls_version = 3;
                 break;
             }
-            snprintf(send_buffer, sizeof(send_buffer),
-                     "Hello world from TLS 1.%i (used chipher is: %s), SNI: "
-                     "%s\r\nYour identity is: %s\r\n\r\nCertificate: "
-                     "%s\r\n\r\nBelow is the received header:\r\n%s\r\nAnd the ",
-                     tls_version, tls_cipher_name(context), sni, identity_str,
-                     tls_certificate_to_string(server_context->certificates[0],
-                                               out_buffer, sizeof(out_buffer)),
-                     read_buffer);
+            snprintf(
+                send_buffer, sizeof(send_buffer),
+                "Hello world from TLS 1.%i (used chipher is: %s), SNI: "
+                "%s\r\nYour identity is: %s\r\n\r\nCertificate: "
+                "%s\r\n\r\nBelow is the received header:\r\n%s\r\nAnd the ",
+                tls_version, tls_cipher_name(context), sni, identity_str,
+                tls_certificate_to_string(server_context->certificates[0],
+                                          out_buffer, sizeof(out_buffer)),
+                read_buffer);
             unsigned long content_length = strlen(send_buffer);
             snprintf(send_buffer_with_header, sizeof(send_buffer),
                      "HTTP/1.1 200 OK\r\n"
@@ -193,5 +191,4 @@ int main(int argc, char *argv[]) {
     close(client_sock);
     tls_destroy_context(context);
   }
-
 }
