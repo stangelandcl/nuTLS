@@ -49,7 +49,7 @@ Cipher Strength     | 100%    | 100%
 
 Curves (Supported Groups) | TLS1.3        | TLS1.2
 ------------------------- | ------------- | ------
-secp256r1                 |               | ✓
+secp256r1                 | ✓             | ✓
 secp384r1                 | ✓             | ✓
 x25519                    | ✓ (preferred) |
 
