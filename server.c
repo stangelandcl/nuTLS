@@ -102,7 +102,7 @@ int main(int argc, char *argv[]) {
 
   c = sizeof(struct sockaddr_in);
 
-  struct TLSContext *server_context = tls_create_context(1, TLS_V12);
+  struct TLSContext *server_context = tls_create_context(1, TLS_V13);
   // load keys
   load_keys(server_context, "./fullchain.pem", "./privkey.pem");
 
@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
       perror("accept failed");
       return 1;
     }
+
     struct TLSContext *context = tls_accept(server_context);
 
     fprintf(stderr, "Client connected\n");
@@ -165,7 +166,7 @@ int main(int argc, char *argv[]) {
                 send_buffer, sizeof(send_buffer),
                 "Hello world from TLS 1.%i (used chipher is: %s), SNI: "
                 "%s\r\nYour identity is: %s\r\n\r\nCertificate: "
-                "%s\r\n\r\nBelow is the received header:\r\n%s\r\nAnd the ",
+                "%s\r\n\r\nBelow is the received header:\r\n%s",
                 tls_version, tls_cipher_name(context), sni, identity_str,
                 tls_certificate_to_string(server_context->certificates[0],
                                           out_buffer, sizeof(out_buffer)),
