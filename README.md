@@ -17,6 +17,8 @@ Take a look at the `server.c` and `client.c` examples. Compile them with GCC or 
 
 In your own projects, just include `nutls.c`.
 
+:warning: nuTLS is **Linux x86-64 only**!
+
 ## Licensing
 
 Almost all nuTLS code is in the Public Domain (see LICENSE). It is in large part based on work by Eduard Suica (TLS) and Tom St Denis (crypto and math).
