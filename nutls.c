@@ -24119,11 +24119,8 @@ struct TLSPacket *tls_build_hello(struct TLSContext *context,
     else
       tls_packet_append(packet, context->local_random, TLS_CLIENT_RANDOM_SIZE);
 
-    _private_tls_set_session_id(context);
-    // session size
-    tls_packet_uint8(packet, context->session_size);
-    if (context->session_size)
-      tls_packet_append(packet, context->session, context->session_size);
+    // ignore sessions
+    tls_packet_uint8(packet, 0);
 
     int extension_len = 0;
     int alpn_len = 0;

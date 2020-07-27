@@ -102,7 +102,7 @@ int main(int argc, char *argv[]) {
 
   c = sizeof(struct sockaddr_in);
 
-  struct TLSContext *server_context = tls_create_context(1, TLS_V13);
+  struct TLSContext *server_context = tls_create_context(1, TLS_V12);
   // load keys
   load_keys(server_context, "./fullchain.pem", "./privkey.pem");
 
