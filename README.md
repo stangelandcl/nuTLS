@@ -13,6 +13,8 @@ Minimal, modern, dependency-free TLS server / client library for Linux.
 
 ## Usage
 
+**Warn**: Examples are functional, but cleanup and commenting is WIP.
+
 Take a look at the `server.c` and `client.c` examples. Compile them with GCC or use musl-gcc for full static builds. Please read the comments in both files to learn how to setup certificates for trying the demos.
 
 In your own projects, just include `nutls.c`.
